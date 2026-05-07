@@ -1,5 +1,15 @@
 import logging, os
 from logging.handlers import RotatingFileHandler
+from src.constant.config import (
+    LOG_DIR,
+    LOG_FILE,
+    LOG_BACKUP_COUNT,
+    MAX_LOG_FILE_SIZE,
+    LOGGER_NAME,
+    DATE_FORMAT,
+    LOG_LEVEL,
+    LOG_FORMAT,
+)
 
 
 def _setup_logger() -> logging.Logger:
@@ -7,30 +17,26 @@ def _setup_logger() -> logging.Logger:
     Loggin configuration for the application.
 
     Returns:
-        logging.Logger: A configured logger instance name "PG"
+        logging.Logger: A configured logger instance name `LOGGER_NAME` from config
     """
-    log = logging.getLogger("PG")
+    log = logging.getLogger(LOGGER_NAME)
     if log.handle:
         return log
 
-    os.makedirs("../logs", exist_ok=True)
+    os.makedirs(LOG_DIR, exist_ok=True)
 
     handler = RotatingFileHandler(
-        filename="../log/app.log",
+        filename=LOG_FILE,
         mode="a",
         encoding="utf-8",
-        maxBytes=1024**2 * 5,  # 5 mb
-        backupCount=3,
+        maxBytes=MAX_LOG_FILE_SIZE,  # 5 mb
+        backupCount=LOG_BACKUP_COUNT,
     )
 
-    handler.setFormatter(
-        logging.Formatter(
-            "%(asctime)s | %(levelname)s | %(message)s", datefmt="%d-%m-%Y %H:%M:%S"
-        )
-    )
+    handler.setFormatter(logging.Formatter(LOG_FORMAT, datefmt=DATE_FORMAT))
 
     log.addHandler(handler)
-    log.setLevel(logging.info)
+    log.setLevel(LOG_LEVEL)
     log.propagate = False
 
     return log
