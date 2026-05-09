@@ -2,8 +2,6 @@
 For Ref: https://stackoverflow.com/questions/42260912/how-to-get-filename-of-second-item-deep-in-exception-traceback
 """
 
-import sys
-
 
 class ApplicationException(Exception):
     """
