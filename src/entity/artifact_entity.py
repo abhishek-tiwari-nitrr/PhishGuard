@@ -30,7 +30,7 @@ class DataValidationArtifact:
         - invalid_train_file_path (str): Path where invalid/corrupted train dataset is stored.
         - invalid_test_file_path (str): Path where invalid/corrupted test dataset is stored.
         - drift_report_file_path (str): Path to generated data drift report.
-        
+
     """
 
     validation_status: bool
@@ -39,3 +39,19 @@ class DataValidationArtifact:
     invalid_train_file_path: str
     invalid_test_file_path: str
     drift_report_file_path: str
+
+
+@dataclass
+class DataTransformationArtifact:
+    """
+    Stores the output artifacts generated during the data transformation phase of the machine learning pipeline.
+
+    Attributes:
+        - transformed_train_file_path (str): Path to transformed train data.
+        - transformed_test_file_path (str): Path to transformed test data.
+        - transformed_object_file_path (str): Path to preprocessing object.
+    """
+
+    transformed_train_file_path: str
+    transformed_test_file_path: str
+    transformed_object_file_path: str
