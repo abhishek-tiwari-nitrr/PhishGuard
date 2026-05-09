@@ -120,3 +120,42 @@ class DataValidationConfig:
         self.drift_report_file_path = os.path.join(
             self.drift_report_dir, training_config.DRIFT_REPORT_NAME
         )
+
+
+class DataTransformationConfig:
+    """
+    Configuration class for the data transformation component.
+
+    Attributes:
+        - data_transformation_dir (str): Directory for storing data transformation artifacts.
+        - transformed_data_dir (str): Directory for storing transformed dataset artifacts.
+        - transformed_train_file_path (str): Path to the transformed training dataset file.
+        - transformed_test_file_path (str): Path to the transformed testing dataset file.
+        - transformed_object_dir (str): Directory for storing transformed object artifact.
+        - transformed_object_file_path (str): Path to the Preprocessing Object File.
+    """
+
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.data_transformation_dir = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_config.DATA_VALIDATION_DIR_NAME,
+        )
+        self.transformed_data_dir = os.path.join(
+            self.data_transformation_dir,
+            training_config.DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR,
+        )
+        self.transformed_train_file_path = os.path.join(
+            self.transformed_data_dir,
+            training_config.TRAIN_FILE_NAME.replace("csv", "npy"),
+        )
+        self.transformed_test_file_path = os.path.join(
+            self.transformed_data_dir,
+            training_config.TEST_FILE_NAME.replace("csv", "npy"),
+        )
+        self.transformed_object_dir = os.path.join(
+            self.data_transformation_dir,
+            training_config.DATA_TRANSFORMATION_PREPROCESSING_OBJECT_DIR,
+        )
+        self.transformed_object_file_path = os.path.join(
+            self.transformed_object_dir, training_config.PREPROCESSING_OBJECT_FILE_NAME
+        )
