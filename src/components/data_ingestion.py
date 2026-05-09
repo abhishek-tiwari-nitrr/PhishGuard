@@ -44,7 +44,7 @@ class DataIngestion:
             self.data_ingestion_config = data_ingestion_config
             self.mongo_client = None
         except Exception as e:
-            ApplicationException(e, sys)
+            raise ApplicationException(e, sys)
 
     def _get_mongo_client(self):
         """
@@ -86,7 +86,7 @@ class DataIngestion:
             logger.info(f"Exported {len(df)} records from MongoDB")
             return df
         except Exception as e:
-            ApplicationException(e, sys)
+            raise ApplicationException(e, sys)
 
     def export_data_into_raw_folder(self, dataframe: pd.DataFrame):
         """
@@ -108,7 +108,7 @@ class DataIngestion:
             dataframe.to_csv(raw_file_path, index=False, header=True)
             return dataframe
         except Exception as e:
-            ApplicationException(e, sys)
+            raise ApplicationException(e, sys)
 
     def export_data_into_ingested_folder(self, dataframe: pd.DataFrame):
         """
@@ -135,7 +135,7 @@ class DataIngestion:
             )
             logger.info(f"Exported train and test file path.")
         except Exception as e:
-            ApplicationException(e, sys)
+            raise ApplicationException(e, sys)
 
     def initiate_data_ingestion(self):
         """
@@ -169,4 +169,4 @@ class DataIngestion:
             )
             return data_ingestion_artifacts
         except Exception as e:
-            ApplicationException(e, sys)
+            raise ApplicationException(e, sys)
