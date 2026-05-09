@@ -27,15 +27,15 @@ class DataIngestionConfig:
     Configuration class for the data ingestion component.
 
     Attributes:
-        - data_ingestion_dir (str) = Directory for storing data ingestion artifacts
-        - data_ingestion_ingest_dir (str): Directory for storing data ingestion - ingested artifacts
-        - data_ingestion_raw_dir (str): Directory for storing data ingestion - raw artifacts
-        - training_file_path (str) = Path to the training dataset file
-        - testing_file_path (str) = Path to the testing dataset file
-        - train_test_split_ratio (float) = Ratio used to split the dataset into training and testing sets
-        - raw_file_path (str) =  Path to the raw dataset file
-        - database_name (str) =  MongoDB database name
-        - collection_name (str) = MongoDB collection name
+        - data_ingestion_dir (str) = Directory for storing data ingestion artifacts.
+        - data_ingestion_ingest_dir (str): Directory for storing data ingestion - ingested artifacts.
+        - data_ingestion_raw_dir (str): Directory for storing data ingestion - raw artifacts.
+        - training_file_path (str) = Path to the training dataset file.
+        - testing_file_path (str) = Path to the testing dataset file.
+        - train_test_split_ratio (float) = Ratio used to split the dataset into training and testing sets.
+        - raw_file_path (str) =  Path to the raw dataset file.
+        - database_name (str) =  MongoDB database name.
+        - collection_name (str) = MongoDB collection name.
     """
 
     def __init__(self, training_pipeline_config: TrainingPipelineConfig):
@@ -71,3 +71,52 @@ class DataIngestionConfig:
         )
         self.database_name = training_config.MONGO_DB_DATABASE_NAME
         self.collection_name = training_config.MONGO_DB_COLLECTION_NAME
+
+
+class DataValidationConfig:
+    """
+    Configuration class for the data validation component.
+
+    Attributes:
+        - data_validation_dir (str): Directory for storing data validation artifacts.
+        - validate_data_dir (str): Directory for storing valid dataset artifacts.
+        - invalidate_data_dir (str): Directory for storing invalid dataset artifacts.
+        - drift_report_dir (str): Directory for storing Drift Report.
+        - validate_train_file_path (str): Path to the validate training dataset file.
+        - validate_test_file_path (str): Path to the validate testing dataset file.
+        - invalidate_train_file_path (str): Path to the invalidate training dataset file.
+        - invalidate_test_file_path (str): Path to the invalidate testing dataset file.
+        - drift_report_file_path (str): Path to the data drift report file.
+
+    """
+
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.data_validation_dir = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_config.DATA_VALIDATION_DIR_NAME,
+        )
+        self.validate_data_dir = os.path.join(
+            self.data_validation_dir, training_config.DATA_VALIDATION_VALID_DIR_NAME
+        )
+        self.invalidate_data_dir = os.path.join(
+            self.data_validation_dir, training_config.DATA_VALIDATION_INVALID_DIR_NAME
+        )
+        self.drift_report_dir = os.path.join(
+            self.data_validation_dir,
+            training_config.DATA_VALIDATION_DRIFT_REPORT_DIR_NAME,
+        )
+        self.validate_train_file_path = os.path.join(
+            self.validate_data_dir, training_config.TRAIN_FILE_NAME
+        )
+        self.validate_test_file_path = os.path.join(
+            self.validate_data_dir, training_config.TEST_FILE_NAME
+        )
+        self.invalidate_train_file_path = os.path.join(
+            self.invalidate_data_dir, training_config.TRAIN_FILE_NAME
+        )
+        self.invalidate_test_file_path = os.path.join(
+            self.invalidate_data_dir, training_config.TEST_FILE_NAME
+        )
+        self.drift_report_file_path = os.path.join(
+            self.drift_report_dir, training_config.DRIFT_REPORT_NAME
+        )
