@@ -28,6 +28,8 @@ class DataIngestionConfig:
 
     Attributes:
         - data_ingestion_dir (str) = Directory for storing data ingestion artifacts
+        - data_ingestion_ingest_dir (str): Directory for storing data ingestion - ingested artifacts
+        - data_ingestion_raw_dir (str): Directory for storing data ingestion - raw artifacts
         - training_file_path (str) = Path to the training dataset file
         - testing_file_path (str) = Path to the testing dataset file
         - train_test_split_ratio (float) = Ratio used to split the dataset into training and testing sets
@@ -40,6 +42,14 @@ class DataIngestionConfig:
         self.data_ingestion_dir = os.path.join(
             training_pipeline_config.artifact_dir,
             training_config.DATA_INGESTION_DIR_NAME,
+        )
+        self.data_ingestion_ingest_dir = os.path.join(
+            self.data_ingestion_dir,
+            training_config.DATA_INGESTION_INGESTED_DIR,
+        )
+        self.data_ingestion_raw_dir = os.path.join(
+            self.data_ingestion_dir,
+            training_config.DATA_INGESTION_RAW_DIR,
         )
         self.training_file_path = os.path.join(
             self.data_ingestion_dir,
