@@ -16,3 +16,26 @@ class DataIngestionArtifact:
     raw_file_path: str
     train_file_path: str
     test_file_path: str
+
+
+@dataclass
+class DataValidationArtifact:
+    """
+    Stores the output artifacts generated during the data validation phase of the machine learning pipeline.
+
+    Attributes:
+        - validation_status (bool): Validation Passed/Failed.
+        - valid_train_file_path (str): Path to validated train dataset.
+        - valid_test_file_path (str): Path to validated test dataset.
+        - invalid_train_file_path (str): Path where invalid/corrupted train dataset is stored.
+        - invalid_test_file_path (str): Path where invalid/corrupted test dataset is stored.
+        - drift_report_file_path (str): Path to generated data drift report.
+        
+    """
+
+    validation_status: bool
+    valid_train_file_path: str
+    valid_test_file_path: str
+    invalid_train_file_path: str
+    invalid_test_file_path: str
+    drift_report_file_path: str
