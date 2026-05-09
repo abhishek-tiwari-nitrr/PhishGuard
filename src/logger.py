@@ -20,7 +20,8 @@ def _setup_logger() -> logging.Logger:
         logging.Logger: A configured logger instance name `LOGGER_NAME` from config
     """
     log = logging.getLogger(LOGGER_NAME)
-    if log.handle:
+
+    if log.handlers:
         return log
 
     os.makedirs(LOG_DIR, exist_ok=True)
