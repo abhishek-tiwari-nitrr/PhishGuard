@@ -138,7 +138,7 @@ class DataTransformationConfig:
     def __init__(self, training_pipeline_config: TrainingPipelineConfig):
         self.data_transformation_dir = os.path.join(
             training_pipeline_config.artifact_dir,
-            training_config.DATA_VALIDATION_DIR_NAME,
+            training_config.DATA_TRANSFORMATION_DIR_NAME,
         )
         self.transformed_data_dir = os.path.join(
             self.data_transformation_dir,
