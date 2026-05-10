@@ -1,6 +1,9 @@
 import yaml, sys
 import pandas as pd
+import numpy as np
+import pickle
 from src.exception import ApplicationException
+from src.logger import logger
 
 
 def read_yaml_file(file_path: str) -> dict:
@@ -44,7 +47,7 @@ def read_csv_file_data(file_path: str) -> pd.DataFrame:
         raise ApplicationException(e, sys)
 
 
-def write_yaml_file(filepath: str, content: object) -> None:
+def write_yaml_file(file_path: str, content: object) -> None:
     """
     Write content into a YAML file.
 
@@ -56,7 +59,46 @@ def write_yaml_file(filepath: str, content: object) -> None:
         ApplicationException: If writing the YAML file fails.
     """
     try:
-        with open(filepath, "w") as file:
+        with open(file_path, "w") as file:
             yaml.dump(content, file)
+    except Exception as e:
+        raise ApplicationException(e, sys)
+
+
+def save_numpy_array_data(file_path: str, array: np.ndarray) -> None:
+    """
+    Save a NumPy array to a binary `.npy` file.
+
+    Args:
+        file_path (str): Path to save Numpy Array.
+        array (np.ndarray): NumPy array to save.
+
+    Raises:
+        ApplicationException: If saving the NumPy array fails.
+    
+    """
+    try:
+        with open(file_path, "wb") as file:
+            np.save(file, array)
+    except Exception as e:
+        raise ApplicationException(e, sys)
+
+
+def save_object(file_path: str, obj: object) -> None:
+    """
+    Serialize and save a Python object using pickle.
+
+    Args:
+        file_path (str): Path to save Object.
+        obj (object): Python object to serialize and save.
+
+    Raises:
+        ApplicationException: If object serialization or saving fails.
+        
+    """
+    try:
+        with open(file_path, "wb") as file:
+            logger.info(f"Saving object to {file}")
+            pickle.dump(obj, file)
     except Exception as e:
         raise ApplicationException(e, sys)
