@@ -155,7 +155,7 @@ class DataValidation:
                 }
                 os.makedirs(self.data_validation_config.drift_report_dir, exist_ok=True)
                 write_yaml_file(
-                    filepath=self.data_validation_config.drift_report_file_path,
+                    file_path=self.data_validation_config.drift_report_file_path,
                     content=report,
                 )
                 logger.info(
