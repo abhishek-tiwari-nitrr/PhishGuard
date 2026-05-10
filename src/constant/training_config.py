@@ -13,6 +13,7 @@ RAW_FILE_NAME: str = "raw.csv"
 DRIFT_REPORT_NAME: str = "report.yaml"
 SCHEMA_FILE_PATH: str = os.path.join("data config", "schema.yaml")
 PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
+TARGET_COLUMN: str = "Result"
 
 # MongoDB Config
 MONGO_DB_DATABASE_NAME: str = os.getenv("DATABASE_NAME")
