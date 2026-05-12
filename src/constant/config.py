@@ -1,5 +1,9 @@
 from pathlib import Path
 import logging
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_PATH: Path = Path(__file__).resolve().parent.parent.parent
 
@@ -13,3 +17,10 @@ LOG_BACKUP_COUNT: int = 3
 LOG_LEVEL:str = logging.INFO
 DATE_FORMAT: str = "%d-%m-%Y %H:%M:%S"
 LOG_FORMAT: str = "%(asctime)s | %(levelname)s | %(message)s"
+
+# dagshub
+DAGSHUB_TOKEN: str = os.getenv("DAGSHUB_TOKEN")
+DAGSHUB_USERNAME: str = os.getenv("DAGSHUB_USERNAME")
+DAGSHUB_REPO_NAME: str = os.getenv("DAGSHUB_REPO_NAME")
+DAGSHUB_TRACKING_URI: str = os.getenv("DAGSHUB_TRACKING_URI")
+LOCAL_TRACKING_URI: str = os.getenv("LOCAL_TRACKING_URI")
