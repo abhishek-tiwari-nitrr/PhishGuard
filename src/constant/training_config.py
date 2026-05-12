@@ -14,6 +14,7 @@ DRIFT_REPORT_NAME: str = "report.yaml"
 SCHEMA_FILE_PATH: str = os.path.join("data config", "schema.yaml")
 PREPROCESSING_OBJECT_FILE_NAME = "preprocessing.pkl"
 TARGET_COLUMN: str = "Result"
+MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
 
 # MongoDB Config
 MONGO_DB_DATABASE_NAME: str = os.getenv("DATABASE_NAME")
@@ -40,3 +41,11 @@ DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
     "n_neighbors": 3,
     "weights": "uniform",
 }
+
+
+# Model Trainer Config
+MODEL_TRAINER_DIR_NAME: str = "4. Model Trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "Trained Model"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.7
+MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD: float = 0.05
+
