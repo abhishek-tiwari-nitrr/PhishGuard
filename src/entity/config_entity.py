@@ -26,6 +26,9 @@ class DataIngestionConfig:
     """
     Configuration class for the data ingestion component.
 
+    Args:
+        - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
+
     Attributes:
         - data_ingestion_dir (str) = Directory for storing data ingestion artifacts.
         - data_ingestion_ingest_dir (str): Directory for storing data ingestion - ingested artifacts.
@@ -77,6 +80,9 @@ class DataValidationConfig:
     """
     Configuration class for the data validation component.
 
+    Args:
+        - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
+
     Attributes:
         - data_validation_dir (str): Directory for storing data validation artifacts.
         - validate_data_dir (str): Directory for storing valid dataset artifacts.
@@ -126,6 +132,9 @@ class DataTransformationConfig:
     """
     Configuration class for the data transformation component.
 
+    Args:
+        - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
+
     Attributes:
         - data_transformation_dir (str): Directory for storing data transformation artifacts.
         - transformed_data_dir (str): Directory for storing transformed dataset artifacts.
@@ -158,4 +167,36 @@ class DataTransformationConfig:
         )
         self.transformed_object_file_path = os.path.join(
             self.transformed_object_dir, training_config.PREPROCESSING_OBJECT_FILE_NAME
+        )
+
+
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        """
+        Configuration class for the model trainer component.
+
+        Args:
+            - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
+
+        Attributes:
+            - model_trainer_dir (str): Directory for storing model artifacts.
+            - trained_model_file_path (str): Path to the trained model artifact.
+            - expected_accuracy (float): Minimum expected model accuracy required for accepting the trained model.
+            - overfitting_underfitting_threshold (float):Acceptable difference threshold between training and testing performance used to detect overfitting or underfitting.
+        """
+        self.model_trainer_dir = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_config.MODEL_TRAINER_DIR_NAME,
+        )
+        self.trained_model_dir= os.path.join(
+            self.model_trainer_dir,
+            training_config.MODEL_TRAINER_TRAINED_MODEL_DIR
+        )
+        self.trained_model_file_path = os.path.join(
+            self.trained_model_dir,
+            training_config.MODEL_TRAINER_TRAINED_MODEL_NAME
+        )
+        self.expected_accuracy = training_config.MODEL_TRAINER_EXPECTED_SCORE
+        self.overfitting_underfitting_threshold = (
+            training_config.MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD
         )
