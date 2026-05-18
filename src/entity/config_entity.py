@@ -228,4 +228,4 @@ class ModelEvaluationConfig:
             training_config.MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
         )
         self.production_model_dir = training_config.PRODUCTION_MODEL_DIR
-        self.production_model_file_path = training_config.PRODUCTION_MODEL_FILE_NAME
+        self.production_model_file_path = os.path.join(self.production_model_dir, training_config.PRODUCTION_MODEL_FILE_NAME)
