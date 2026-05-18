@@ -1,7 +1,7 @@
 import yaml, sys
 import pandas as pd
 import numpy as np
-import pickle
+import pickle, os
 from src.exception import ApplicationException
 from src.logger import logger
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
@@ -233,5 +233,29 @@ def load_object(file_path: str) -> object:
     try:
         with open(file_path, "rb") as file:
             return pickle.load(file)
+    except Exception as e:
+        raise ApplicationException(e, sys)
+
+
+def production_model_exists(file_path: str) -> bool:
+    """
+    Checks weather Production Model File Path Exists or not.
+
+    Args:
+        file_path (str): Production Model File Path
+
+    Raises:
+        ApplicationException: Raised if problem found
+
+    Returns:
+        bool: True if it exists. Otherwise False
+    """
+    try:
+        if not os.path.exists(file_path):
+            logger.info("No production model found - first deployment")
+            return False
+        else:
+            logger.info("Production Model Exists")
+            return True
     except Exception as e:
         raise ApplicationException(e, sys)
