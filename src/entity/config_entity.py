@@ -171,32 +171,61 @@ class DataTransformationConfig:
 
 
 class ModelTrainerConfig:
+    """
+    Configuration class for the model trainer component.
+
+    Args:
+        - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
+
+    Attributes:
+        - model_trainer_dir (str): Directory for storing model artifacts.
+        - trained_model_file_path (str): Path to the trained model artifact.
+        - expected_accuracy (float): Minimum expected model accuracy required for accepting the trained model.
+        - overfitting_underfitting_threshold (float):Acceptable difference threshold between training and testing performance used to detect overfitting or underfitting.
+    """
+
     def __init__(self, training_pipeline_config: TrainingPipelineConfig):
-        """
-        Configuration class for the model trainer component.
-
-        Args:
-            - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
-
-        Attributes:
-            - model_trainer_dir (str): Directory for storing model artifacts.
-            - trained_model_file_path (str): Path to the trained model artifact.
-            - expected_accuracy (float): Minimum expected model accuracy required for accepting the trained model.
-            - overfitting_underfitting_threshold (float):Acceptable difference threshold between training and testing performance used to detect overfitting or underfitting.
-        """
         self.model_trainer_dir = os.path.join(
             training_pipeline_config.artifact_dir,
             training_config.MODEL_TRAINER_DIR_NAME,
         )
-        self.trained_model_dir= os.path.join(
-            self.model_trainer_dir,
-            training_config.MODEL_TRAINER_TRAINED_MODEL_DIR
+        self.trained_model_dir = os.path.join(
+            self.model_trainer_dir, training_config.MODEL_TRAINER_TRAINED_MODEL_DIR
         )
         self.trained_model_file_path = os.path.join(
-            self.trained_model_dir,
-            training_config.MODEL_TRAINER_TRAINED_MODEL_NAME
+            self.trained_model_dir, training_config.MODEL_TRAINER_TRAINED_MODEL_NAME
         )
         self.expected_accuracy = training_config.MODEL_TRAINER_EXPECTED_SCORE
         self.overfitting_underfitting_threshold = (
             training_config.MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD
         )
+
+
+class ModelEvaluationConfig:
+    """
+    Configuration class for the model evaluation component.
+
+    Args:
+        - training_pipeline_config (TrainingPipelineConfig): Configuration object containing pipeline-level settings such as the artifact directory path.
+
+    Attributes:
+        - model_evaluation_dir (str) = Directory for storing model evaluation artifacts.
+        - report_file_path (str) = Path to the model evaluation report file.
+        - changed_threshold_score (float) = Minimum F1 improvement to accept the new model.
+        - production_model_dir (str) = Directory for storing production model artifact.
+        - production_model_file_path (str) = Path to the production model artifact.
+    """
+
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.model_evaluation_dir = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_config.MODEL_EVALUATION_DIR_NAME,
+        )
+        self.report_file_path = os.path.join(
+            self.model_evaluation_dir, training_config.MODEL_EVALUATION_REPORT_NAME
+        )
+        self.changed_threshold_score = (
+            training_config.MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
+        )
+        self.production_model_dir = training_config.PRODUCTION_MODEL_DIR
+        self.production_model_file_path = training_config.PRODUCTION_MODEL_FILE_NAME
