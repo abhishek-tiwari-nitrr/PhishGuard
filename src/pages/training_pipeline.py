@@ -97,7 +97,7 @@ def trainingPipeline():
                 4,
                 *PIPELINE_STEPS[4],
                 lambda: ModelEvaluation(
-                    me_config, mt_art, dt_art
+                    mt_art, dt_art, me_config
                 ).initiate_model_evaluation(),
             )
 
