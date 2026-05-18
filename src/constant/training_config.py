@@ -59,3 +59,8 @@ MODEL_EVALUATION_REPORT_NAME: str = "report.yaml"
 # Model Pusher Config
 PRODUCTION_MODEL_DIR: str = "production_model"
 PRODUCTION_MODEL_FILE_NAME: str = "model.pkl"
+
+# Production Model Config
+PRODUCTION_MODEL_FILE_PATH: str = os.path.join(
+    PRODUCTION_MODEL_DIR, PRODUCTION_MODEL_FILE_NAME
+)
