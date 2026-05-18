@@ -1,7 +1,4 @@
-"""
-For Ref: https://stackoverflow.com/questions/42260912/how-to-get-filename-of-second-item-deep-in-exception-traceback
-"""
-
+import sys
 
 class ApplicationException(Exception):
     """
@@ -16,13 +13,20 @@ class ApplicationException(Exception):
         sys_error_details (Exception | None, optional): Original exception instance. Defaults to None.
     """
 
-    def __init__(self, error_message, sys_error_details: Exception | None = None):
+    def __init__(self, error_message, sys_error_details = None):
         super().__init__(error_message)
 
-        traceback = sys_error_details.__traceback__ if sys_error_details else None
+        if sys_error_details is None:
+            _, exc, tb = sys.exc_info()
+        elif isinstance(sys_error_details, Exception):
+            tb = sys_error_details.__traceback__
+            while tb and tb.tb_next:
+                tb = tb.tb_next
+        else:
+            tb = None
 
-        self.lineno = traceback.tb_lineno if traceback else "NA"
-        self.filename = traceback.tb_frame.f_code.co_filename if traceback else "NA"
+        self.lineno = tb.tb_lineno if tb else "NA"
+        self.filename = tb.tb_frame.f_code.co_filename if tb else "NA"
 
     def __str__(self):
         """
