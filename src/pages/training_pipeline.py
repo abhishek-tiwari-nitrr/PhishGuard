@@ -142,7 +142,7 @@ def trainingPipeline():
                         },
                         "is_model_accepted": me_art.is_model_accepted,
                         "delta_f1": round(me_art.improved_accuracy, 4),
-                        "production_model_path": me_art.best_model_path,
+                        "production_model_path": me_art.production_model_file_path,
                     }
                 )
         except Exception as e:
