@@ -1,7 +1,27 @@
 [project]
 name = "phishguard"
-version = "0.1.0"
-description = "Add your description here"
+version = "1.0.0"
+description = "AI-powered phishing website detection using 30 URL/page-level features"
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = []
+license = { file = "LICENSE" }
+requires-python = ">=3.12"
+dependencies = [
+  "pandas",
+  "scipy",
+  "pymongo[srv]",
+  "python-dotenv",
+  "certifi",
+  "scikit-learn",
+  "pyyaml",
+  "dagshub",
+  "mlflow",
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic",
+  "python-multipart",
+  "streamlit",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
