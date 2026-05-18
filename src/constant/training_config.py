@@ -49,3 +49,13 @@ MODEL_TRAINER_TRAINED_MODEL_DIR: str = "Trained Model"
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.7
 MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD: float = 0.05
 
+
+# Model Evaluation Config
+MODEL_EVALUATION_DIR_NAME: str = "5. Model Evaluation"
+# new model must improve by >= 2 %
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.02
+MODEL_EVALUATION_REPORT_NAME: str = "report.yaml"
+
+# Model Pusher Config
+PRODUCTION_MODEL_DIR: str = "production_model"
+PRODUCTION_MODEL_FILE_NAME: str = "model.pkl"
