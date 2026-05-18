@@ -1,3 +1,5 @@
+setuptools>=65.0.0
+importlib_metadata<8.0.0
 pandas
 scipy
 pymongo[srv]
@@ -13,4 +15,3 @@ uvicorn[standard]
 pydantic
 python-multipart
 streamlit
-setuptools
