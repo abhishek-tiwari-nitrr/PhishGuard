@@ -90,3 +90,25 @@ class ModelTrainerArtifact:
     trained_model_file_path: str
     train_metric_artifact: ClassificationModelArtifact
     test_metric_artifact: ClassificationModelArtifact
+
+
+@dataclass
+class ModelEvaluationArtifact:
+    """
+    Stores artifacts generated during the model evaluation phase.
+
+    Attributes:
+        - is_model_accepted (bool): True if the new model beats the production model.
+        - improved_accuracy (float): Delta F1-score (new - existing).  Negative means performance regression.
+        - trained_model_file_path (str): File path where the trained model is saved.
+        - production_model_file_path (str): Path of the model that should go to production.
+        - train_metric_artifact (ClassificationModelArtifact): Evaluation metrics computed on the testing dataset by new model.
+        - production_metric_artifact (ClassificationModelArtifact): Evaluation metrics computed on the testing dataset by production model.
+    """
+
+    is_model_accepted: bool
+    improved_accuracy: float
+    trained_model_file_path: str
+    production_model_file_path: str
+    train_metric_artifact: ClassificationModelArtifact
+    production_metric_artifact: ClassificationModelArtifact
