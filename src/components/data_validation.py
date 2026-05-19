@@ -143,6 +143,7 @@ class DataValidation:
         try:
             status = True
             report = {}
+            os.makedirs(self.data_validation_config.drift_report_dir, exist_ok=True)
             for col in base_df.columns:
                 d1, d2 = base_df[col], current_df[col]
                 ks_result = ks_2samp(d1, d2)
@@ -153,7 +154,6 @@ class DataValidation:
                     "p_value": float(ks_result.pvalue),
                     "drift_status": drift_found,
                 }
-                os.makedirs(self.data_validation_config.drift_report_dir, exist_ok=True)
                 write_yaml_file(
                     file_path=self.data_validation_config.drift_report_file_path,
                     content=report,

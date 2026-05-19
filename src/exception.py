@@ -1,4 +1,5 @@
-import sys
+import sys as _sys
+
 
 class ApplicationException(Exception):
     """
@@ -13,20 +14,17 @@ class ApplicationException(Exception):
         sys_error_details (Exception | None, optional): Original exception instance. Defaults to None.
     """
 
-    def __init__(self, error_message, sys_error_details = None):
-        super().__init__(error_message)
-
-        if sys_error_details is None:
-            _, exc, tb = sys.exc_info()
-        elif isinstance(sys_error_details, Exception):
-            tb = sys_error_details.__traceback__
-            while tb and tb.tb_next:
-                tb = tb.tb_next
+    def __init__(self, error_message, sys_error_details=None):
+        _, _, tb = _sys.exc_info()
+        if tb is not None:
+            self.lineno = tb.tb_lineno
+            self.filename = tb.tb_frame.f_code.co_filename
         else:
-            tb = None
+            self.lineno = "NA"
+            self.filename = "NA"
 
-        self.lineno = tb.tb_lineno if tb else "NA"
-        self.filename = tb.tb_frame.f_code.co_filename if tb else "NA"
+        self.error_message = error_message
+        super().__init__(self.error_message)
 
     def __str__(self):
         """

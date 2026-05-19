@@ -124,7 +124,7 @@ class DataIngestion:
             ingested_dir = self.data_ingestion_config.data_ingestion_ingest_dir
             os.makedirs(ingested_dir, exist_ok=True)
             train_data, test_data = train_test_split(
-                dataframe, test_size=self.data_ingestion_config.train_test_split_ratio
+                dataframe, test_size=self.data_ingestion_config.train_test_split_ratio, random_state=self.data_ingestion_config.random_state
             )
             logger.info("Exporting train and test file path")
             train_data.to_csv(

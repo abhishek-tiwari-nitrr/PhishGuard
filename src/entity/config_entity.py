@@ -15,7 +15,8 @@ class TrainingPipelineConfig:
         - artifact_dir (str): Full path to the timestamped artifact directory
     """
 
-    def __init__(self, timestamp=datetime.now(IST)):
+    def __init__(self, timestamp=None):
+        timestamp = datetime.now(IST)
         timestamp = timestamp.strftime("%d_%m_%Y_%H_%M_%S")
         self.pipeline_name = training_config.PIPELINE_NAME
         self.artifact_name = training_config.ARTIFACT_DIR
@@ -39,6 +40,7 @@ class DataIngestionConfig:
         - raw_file_path (str) =  Path to the raw dataset file.
         - database_name (str) =  MongoDB database name.
         - collection_name (str) = MongoDB collection name.
+        - randome_state (int) = Random State for Test Train Split.
     """
 
     def __init__(self, training_pipeline_config: TrainingPipelineConfig):
@@ -74,6 +76,7 @@ class DataIngestionConfig:
         )
         self.database_name = training_config.MONGO_DB_DATABASE_NAME
         self.collection_name = training_config.MONGO_DB_COLLECTION_NAME
+        self.random_state = training_config.RANDOM_STATE
 
 
 class DataValidationConfig:
@@ -228,4 +231,6 @@ class ModelEvaluationConfig:
             training_config.MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
         )
         self.production_model_dir = training_config.PRODUCTION_MODEL_DIR
-        self.production_model_file_path = os.path.join(self.production_model_dir, training_config.PRODUCTION_MODEL_FILE_NAME)
+        self.production_model_file_path = os.path.join(
+            self.production_model_dir, training_config.PRODUCTION_MODEL_FILE_NAME
+        )
