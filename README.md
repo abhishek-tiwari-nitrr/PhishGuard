@@ -275,6 +275,11 @@ Full interactive docs at `/docs` (Swagger UI)
 
 ---
 
+## 🎥 Demo
+
+[![PhishGuard Demo](https://img.youtube.com/vi/2LUZ8VoyMQY/maxresdefault.jpg)](https://youtu.be/2LUZ8VoyMQY)
+
+----
 ## Tech Stack
 
 | Layer | Technology |
