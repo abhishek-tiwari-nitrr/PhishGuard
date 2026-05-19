@@ -3,9 +3,9 @@
 > **AI-powered phishing website detection** - 30 URL/page-level features - scikit-learn - MLflow - FastAPI - Streamlit
  
 [![Python](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-teal.svg)](https://fastapi.tiangolo.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-2.x-red.svg)](https://streamlit.io/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.x-red.svg)](https://streamlit.io/)
+[![CI/CD](https://github.com/abhishek-tiwari-nitrr/PhishGuard/actions/workflows/main.yaml/badge.svg)](https://github.com/abhishek-tiwari-nitrr/PhishGuard/actions/workflows/main.yaml)
 [![Live App](https://img.shields.io/badge/Live%20App-Streamlit-brightgreen)](https://abhishek-tiwari-nitrr-phishguard.streamlit.app/)
 
 ---
@@ -39,13 +39,21 @@ PhishGuard/
 ├── main.py                         # Streamlit entry point
 ├── README.md
 ├── LICENSE
+├── .gitignore
+├── .dockerignore
+├── Dockerfile
+├── docker-compose.yml
 ├── pyproject.toml
 ├── requirements.txt
 ├── requirements-dev.txt
 ├── .python-version                 # 3.11
 │
-├── data config/
+├── .github/workflows
+│   └── main.yaml                   # CI/CD: Unit Test and Docker Image Build and Push
+│
+├── data_config/
 │   └── schema.yaml                 # Column definitions & numerical column list
+│
 ├── src/
 │   ├── components/                 # Pipeline stages
 │   │   ├── data_ingestion.py
@@ -75,6 +83,7 @@ PhishGuard/
 │
 ├── production_model/
 │   └── model.pkl                  # Promoted production model
+│
 ├── PG_Artifacts/                  # Timestamped run artifacts (auto-generated)
 │   └── DD_MM_YYYY_HH_MM_SS/
 │       ├── 1. Data Ingestion/
@@ -121,19 +130,19 @@ Create a `.env` file in the project root and add your configuration values.
 
 ```dotenv
 # MongoDB
-MONGO_DB_URL = "mongodb+srv://<user>:<password>@<cluster>.mongodb.net/?appName=<appName>"
-DATABASE_NAME = "<database name>"
-COLLECTION_NAME = "<collection name>"
+MONGO_DB_URL=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/?appName=<appName>
+DATABASE_NAME=<database name>
+COLLECTION_NAME=<collection name>
 
 # DagsHub
-DAGSHUB_TRACKING_URI = "https://dagshub.com/<username>/<repo_name>.mlflow"
-DAGSHUB_TOKEN = "<token>"
-DAGSHUB_USERNAME = "<username>"
-DAGSHUB_REPO_NAME = "<repo_name>"
-LOCAL_TRACKING_URI = "mlruns"
+DAGSHUB_TRACKING_URI=https://dagshub.com/<username>/<repo_name>.mlflow
+DAGSHUB_TOKEN=<token>
+DAGSHUB_USERNAME=<username>
+DAGSHUB_REPO_NAME=<repo_name>
+LOCAL_TRACKING_URI=mlruns
 
 # Render FastApi
-API_URL = "<url_of_fast_api>"
+API_URL=<url_of_fast_api>
 ```
 
 ### 3. Run the training pipeline
@@ -144,21 +153,102 @@ Trigger it from the **🚀 Train Pipeline** tab in the Streamlit UI.
  
 ```bash
 uvicorn app:app --host 0.0.0.0 --port 8000 --reload
-# Swagger UI: http://localhost:8000/docs
 ```
 
 ### 5. Start the Streamlit dashboard
  
 ```bash
 streamlit run main.py
-# Opens: http://localhost:8501
 ```
+
+### Access
+
+| Service   | URL                        |
+|-----------|----------------------------|
+| FastAPI   | http://localhost:8000/docs |
+| Streamlit | http://localhost:8501      |
+
+---
+
+## Running Tests
+
+```bash
+uv pip install -r requirements.txt -r requirements-test.txt
+pytest unit_test/unit_test.py -v --tb=short
+```
+---
+
+## Docker
+
+### Prerequisites
+- Docker Desktop installed and running
+- `.env` file in project root with your credentials
+
+
+### Run with Docker Compose
+
+Runs both FastAPI and Streamlit together: 
+
+```bash
+docker compose up
+```
+
+Stop: 
+
+```bash 
+docker compose down
+```
+
+### Run individually
+
+Pull the image: 
+
+```bash
+docker pull abhishektiwarinitrr/phishguard_v1
+```
+
+Run FastAPI: 
+
+```bash
+docker run -p 8000:8000 --env-file .env abhishektiwarinitrr/phishguard_v1
+```
+
+Run Streamlit: 
+
+```bash
+docker run -p 8501:8501 --env-file .env abhishektiwarinitrr/phishguard_v1 streamlit run main.py --server.port 8501 --server.address 0.0.0.0
+```
+
+
+### Access
+
+| Service   | URL                        |
+|-----------|----------------------------|
+| FastAPI   | http://localhost:8000/docs |
+| Streamlit | http://localhost:8501      |
+
+
+### Docker Hub
+
+Image: https://hub.docker.com/r/abhishektiwarinitrr/phishguard_v1
+
+
+---
+
+## CI/CD
+
+Automated pipeline runs on every push to `main`:
+
+| Job | Description |
+|-----|-------------|
+| ✅ Test | Runs unit tests with pytest |
+| 🐳 Docker Build & Push | Builds and pushes image to Docker Hub |
+
 
 ---
 
 ## API Reference
  
-Base URL: `http://localhost:8000`
  
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -187,9 +277,10 @@ Full interactive docs at `/docs` (Swagger UI)
 
 | Layer | Technology |
 |---|---|
+| Language | Python 3.11 |
+| Database | MongoDB Atlas |
 | ML & Data | scikit-learn, pandas, numpy, scipy |
 | Experiment Tracking | MLflow, DagsHub |
 | API | FastAPI, Pydantic, Uvicorn |
 | UI | Streamlit |
-| Database | MongoDB Atlas |
-| Language | Python 3.11 |
+| Infrastructure | Docker, GitHub Actions |
