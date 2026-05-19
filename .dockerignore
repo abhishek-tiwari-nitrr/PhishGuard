@@ -1,0 +1,10 @@
+.env
+.git
+PG_Artifacts/
+mlruns/
+logs/
+__pycache__
+*.pyc
+requirements-dev.txt
+tests/
+docs/
