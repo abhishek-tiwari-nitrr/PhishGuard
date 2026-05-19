@@ -1,0 +1,27 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pytest_cache
+
+# Virtual environments
+pg
+.venv
+
+# logs
+logs
+
+# exp
+notebook
+
+# env variable
+.env
+
+# artifacts
+PG_Artifacts
+
+# Production Model
+# production_model
