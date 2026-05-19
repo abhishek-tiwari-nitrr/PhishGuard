@@ -6,6 +6,8 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-teal.svg)](https://fastapi.tiangolo.com/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.x-red.svg)](https://streamlit.io/)
 [![CI/CD](https://github.com/abhishek-tiwari-nitrr/PhishGuard/actions/workflows/main.yaml/badge.svg)](https://github.com/abhishek-tiwari-nitrr/PhishGuard/actions/workflows/main.yaml)
+[![DagsHub](https://img.shields.io/badge/DagsHub-PhishGuard-orange?logo=dagshub)](https://dagshub.com/abhishek-tiwari-nitrr/PhishGuard)
+[![MLflow](https://img.shields.io/badge/MLflow-Tracking-blue?logo=mlflow)](https://dagshub.com/abhishek-tiwari-nitrr/PhishGuard.mlflow)
 [![Live App](https://img.shields.io/badge/Live%20App-Streamlit-brightgreen)](https://abhishek-tiwari-nitrr-phishguard.streamlit.app/)
 
 ---
